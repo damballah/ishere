@@ -3,21 +3,20 @@ Module Module1
     Public Sub Main(ByVal Args() As String)
         On Error GoTo erreur
         Dim chaine, ligne, fichier, contenu, resultat As String
+        Dim SR As New IO.StreamReader(Args(1))
+
         chaine = Args(0)
-        fichier = Args(1)
+        'fichier = Args(1)
         resultat = "KO"
-        contenu = ""
-
-        FileOpen(1, fichier, OpenMode.Input)
 
 
-        While Not EOF(1)
-            contenu = contenu & LineInput(1)
-        End While
+        Do Until SR.Peek = -1
+            ligne = ligne & SR.ReadLine()
+        Loop
 
-        FileClose(1)
+        SR.Close()
 
-        If contenu.Contains(chaine) = True Then
+        If ligne.Contains(chaine) = True Then
             resultat = "OK"
         Else
         End If
